@@ -1,0 +1,96 @@
+<script>
+  function switchTab(type) {
+    if (type === 'fav') {
+      document.getElementById('foo').style.display = 'block'
+      document.getElementById('bar').style.display = 'none'
+    } else if (type === 'ret') {
+      document.getElementById('foo').style.display = 'none'
+      document.getElementById('bar').style.display = 'block'
+    }
+
+  }
+</script>
+<div class="container">
+  <div class="tab">
+    <ul>
+      <li><button onclick="switchTab('fav')">いいね順</button></li>
+      <li><button onclick="switchTab('ret')">リツイート順</button></li>
+    </ul>
+  </div>
+
+  <div class="fav_tweets" id="foo">
+    <% @favorite_results.each_with_index do |result, i| %>
+      <div class="tweet">
+        <div class="left">
+          <img src="<%= result.user.profile_image_uri %>" alt="">
+        </div>
+        <div class="right">
+          <div>
+            <p><%= i + 1 %>位</p>
+          </div>
+          <div>
+            <a href="#"><%= result.user.name %> @<%= result.user.screen_name %></a>
+          </div>
+          <div>
+            <p> <%= result.text %></p>
+          </div>
+          <div>
+            <% if result.media.present? %>
+              <% result.media.each do |media| %>
+                <% if media.class.ancestors.include?(Twitter::Media::Video) %>
+                  <video src="<%= media.media_url_https %>">
+                <% else %>
+                  <img src="<%= media.media_url_https %>">
+                <% end %>
+              <% end %>
+            <% end %>
+          </div>
+          <div class="status">
+            <p>RT:<%= result.retweet_count %>Fav:<%= result.favorite_count %></p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="ret_tweets" id="bar">
+    <% @retweet_results.each_with_index do |result, i| %>
+      <div class="tweet">
+        <div class="left">
+          <img src="<%= result.user.profile_image_uri %>" alt="">
+        </div>
+        <div class="right">
+          <div>
+            <p><%= i + 1 %></p>
+          </div>
+          <div>
+            <a href="#"><%= result.user.name%> @<%= result.user.screen_name%></a>
+          </div>
+          <div>
+            <p><%= result.text %></p>
+          </div>
+          <div>
+            <% if result.media.present? %>
+              <% result.media.each do |media| %>
+                <% if media.class.ancestors.include?(Twitter::Media::Video) %>
+                  <video src="<%= media.media_url_https %>"></video>
+                <% else %>
+                  <img src="<%= media.media_url_https %>"></video>
+                <% end %>
+              <% end %>
+            <% end %>
+          </div>
+          <div class="status">
+            <p>RT:<%= result.retweet_count %>Fav:<%= result.favorite_count %></p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+
+
+
+
+<!-- @results.first.user.profile_image_uri -->

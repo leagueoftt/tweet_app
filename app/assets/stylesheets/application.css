@@ -1,0 +1,138 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a{
+  text-decoration: none;
+}
+
+ul, li{
+  list-style: none;
+}
+
+img {
+  display: block;
+}
+
+.tab{
+  width: 400px;
+  margin: 0 auto;
+}
+
+.tab ul{
+  display: flex;
+  flex-direction: row;
+}
+
+button {
+  width: 200px;
+  height: 40px;
+}
+
+.fav_tweets,
+.ret_tweets {
+  width: 600px;
+  margin: 20px auto;
+}
+
+.ret_tweets{
+  display: none;
+}
+
+.tweet {
+  display: flex;
+  border: 1px solid #aaa;
+}
+
+.left {
+  width: 150px;
+  border-right: 1px solid #aaa;
+  padding: 20px ;
+}
+
+.left img {
+  width: 100%;
+}
+
+.right {
+  width: 450px;
+  padding: 20px;
+}
+
+.right img{
+  width: 100%
+}
+
+
+ul, li {
+  list-style: none;
+}
+
+ul {
+  display: inline-flex
+}
+
+.tab > li {
+  flex-direction: row;
+}
+
+.text_box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.favorites{
+  width: 600px;
+}
+
+.content1 {
+  width: 100%;
+}
+
+.content1, .content2, .user_profile, .status{
+  display: flex;
+}
+
+.icon{
+  border: solid;
+}
+
+.article{
+  border:solid red;
+  width: 200px;
+}
+
+.retweets{
+  display: none;
+}
+
+.content1{
+  width: 400px;
+}
+
+.article{
+  width: 400px;
+}
+
+.user_profile{
+  width: 200px;
+}
