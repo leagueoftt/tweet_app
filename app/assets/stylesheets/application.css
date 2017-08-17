@@ -19,11 +19,11 @@
   box-sizing: border-box;
 }
 
-a{
+a {
   text-decoration: none;
 }
 
-ul, li{
+ul, li {
   list-style: none;
 }
 
@@ -31,12 +31,21 @@ img {
   display: block;
 }
 
-.tab{
-  width: 400px;
+.container {
+  background: #e9ebee;
+  padding: 50px 0;
+}
+
+.tab {
+  width: 600px;
   margin: 0 auto;
 }
 
-.tab ul{
+.selected {
+  background: #fff;
+}
+
+.tab ul {
   display: flex;
   flex-direction: row;
 }
@@ -49,31 +58,49 @@ button {
 .fav_tweets,
 .ret_tweets {
   width: 600px;
-  margin: 20px auto;
+  margin: 0 auto;
 }
 
-.ret_tweets{
+.ret_tweets {
   display: none;
 }
 
 .tweet {
   display: flex;
   border: 1px solid #aaa;
+  margin-bottom: 10px;
+  background: #fff;
 }
 
 .left {
-  width: 150px;
-  border-right: 1px solid #aaa;
-  padding: 20px ;
+  width: 90px;
+  padding: 20px;
+  position: relative;
+}
+
+.rank{
+  position: absolute;
+  top: 0;
+  left: -20px;
+  border: solid 1px black;
+  width: 40px;
+  height: 40px;
+  font-size: 30px;
+  text-align: center;
+  font-family: "Verdana";
+  color: rgba(0,0,0,0.5);
+  background: #fff;
+  z-index: 1;
 }
 
 .left img {
   width: 100%;
+  border-radius: 25px;
 }
 
 .right {
-  width: 450px;
-  padding: 20px;
+  width: 510px;
+  padding: 20px 20px 20px 0;
 }
 
 .right img{

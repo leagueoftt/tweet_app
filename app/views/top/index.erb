@@ -1,38 +1,59 @@
 <script>
   function switchTab(type) {
-    if (type === 'fav') {
-      document.getElementById('foo').style.display = 'block'
-      document.getElementById('bar').style.display = 'none'
-    } else if (type === 'ret') {
-      document.getElementById('foo').style.display = 'none'
-      document.getElementById('bar').style.display = 'block'
-    }
+    if (type === 'tab1') {
+      document.getElementById('content1').style.display = 'block'
+      document.getElementById('content2').style.display = 'none'
+      document.getElementById('content3').style.display = 'none'
 
+      document.getElementsByClassName('tab1')[0].classList.add('selected')
+      document.getElementsByClassName('tab2')[0].classList.remove('selected')
+      document.getElementsByClassName('tab3')[0].classList.remove('selected')
+    } else if (type === 'tab2') {
+      document.getElementById('content1').style.display = 'none'
+      document.getElementById('content2').style.display = 'block'
+      document.getElementById('content3').style.display = 'none'
+
+      document.getElementsByClassName('tab1')[0].classList.remove('selected')
+      document.getElementsByClassName('tab2')[0].classList.add('selected')
+      document.getElementsByClassName('tab3')[0].classList.remove('selected')
+    } else if (type === 'tab3') {
+      document.getElementById('content1').style.display = 'none'
+      document.getElementById('content2').style.display = 'none'
+      document.getElementById('content3').style.display = 'block'
+
+      document.getElementsByClassName('tab1')[0].classList.remove('selected')
+      document.getElementsByClassName('tab2')[0].classList.remove('selected')
+      document.getElementsByClassName('tab3')[0].classList.add('selected')
+    }
   }
 </script>
 <div class="container">
   <div class="tab">
     <ul>
-      <li><button onclick="switchTab('fav')">いいね順</button></li>
-      <li><button onclick="switchTab('ret')">リツイート順</button></li>
+      <li><button onclick="switchTab('tab1')" class="tab1 selected">昨日のランキング</button></li>
+      <li><button onclick="switchTab('tab2')" class="tab2">今日の午前</button></li>
+      <li><button onclick="switchTab('tab3')" class="tab3">今日の午後</button></li>
     </ul>
   </div>
 
-  <div class="fav_tweets" id="foo">
-    <% @favorite_results.each_with_index do |result, i| %>
+  <div class="fav_tweets" id="content1">
+    <% @content1.each_with_index do |result, i| %>
       <div class="tweet">
         <div class="left">
+          <div class="rank">
+            <p><%= i + 1 %></p>
+          </div>
           <img src="<%= result.user.profile_image_uri %>" alt="">
         </div>
         <div class="right">
           <div>
-            <p><%= i + 1 %>位</p>
-          </div>
-          <div>
-            <a href="#"><%= result.user.name %> @<%= result.user.screen_name %></a>
+            <a href="<%= result.user.uri %>" target="_blank"><%= result.user.name %> @<%= result.user.screen_name %></a>
           </div>
           <div>
             <p> <%= result.text %></p>
+          </div>
+          <div>
+            <a href=""><img src="" alt=""></a>
           </div>
           <div>
             <% if result.media.present? %>
@@ -46,23 +67,23 @@
             <% end %>
           </div>
           <div class="status">
-            <p>RT:<%= result.retweet_count %>Fav:<%= result.favorite_count %></p>
+            <p>RT:<%= result.retweet_count %> Fav:<%= result.favorite_count %></p>
           </div>
         </div>
       </div>
     <% end %>
   </div>
 
-  <div class="ret_tweets" id="bar">
-    <% @retweet_results.each_with_index do |result, i| %>
+  <div class="ret_tweets" id="content2">
+    <% @content2.each_with_index do |result, i| %>
       <div class="tweet">
         <div class="left">
+          <div class="rank">
+            <p><%= i + 1 %></p>
+          </div>
           <img src="<%= result.user.profile_image_uri %>" alt="">
         </div>
         <div class="right">
-          <div>
-            <p><%= i + 1 %></p>
-          </div>
           <div>
             <a href="#"><%= result.user.name%> @<%= result.user.screen_name%></a>
           </div>
@@ -81,14 +102,52 @@
             <% end %>
           </div>
           <div class="status">
-            <p>RT:<%= result.retweet_count %>Fav:<%= result.favorite_count %></p>
+            <p>RT:<%= result.retweet_count %> Fav:<%= result.favorite_count %></p>
           </div>
         </div>
       </div>
     <% end %>
   </div>
-</div>
 
+  <div class="ret_tweets" id="content3">
+    <% @content3.each_with_index do |result, i| %>
+      <div class="tweet">
+        <div class="left">
+          <div class="rank">
+            <p><%= i + 1 %></p>
+          </div>
+          <img src="<%= result.user.profile_image_uri %>" alt="">
+        </div>
+        <div class="right">
+          <div>
+            <a href="<%= result.user.uri %>" target="_blank"><%= result.user.name %> @<%= result.user.screen_name %></a>
+          </div>
+          <div>
+            <p> <%= result.text %></p>
+          </div>
+          <div>
+            <a href=""><img src="" alt=""></a>
+          </div>
+          <div>
+            <% if result.media.present? %>
+              <% result.media.each do |media| %>
+                <% if media.class.ancestors.include?(Twitter::Media::Video) %>
+                  <video src="<%= media.media_url_https %>">
+                <% else %>
+                  <img src="<%= media.media_url_https %>">
+                <% end %>
+              <% end %>
+            <% end %>
+          </div>
+          <div class="status">
+            <p>RT:<%= result.retweet_count %> Fav:<%= result.favorite_count %></p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="footer"></div>
+</div>
 
 
 

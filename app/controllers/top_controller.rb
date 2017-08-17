@@ -3,12 +3,14 @@ class TopController < ApplicationController
 
  def index
    get_tweet
+#   binding.pry
+=begin
    @favorite_results.sort_by! {|result| result.favorite_count}
    @favorite_results.reverse!
 
    @retweet_results.sort_by! {|result| result.retweet_count}
    @retweet_results.reverse!
-   binding.pry
+=end
  end
 
  def search
@@ -29,11 +31,21 @@ class TopController < ApplicationController
      config.access_token         = Rails.application.secrets.access_token
      config.access_token_secret  = Rails.application.secrets.access_token_secret
    end
-   begin_time = (Time.now - 1.hour).strftime("%F_%k:00:00")
-   end_time = (Time.now - 1.hour).strftime("%F_%k:59:59")
-   @favorite_results = @client.search("lang:ja min_faves:1500 since:#{begin_time}_JST until:#{end_time}_JST").take(10)
-   @retweet_results = @client.search("lang:ja min_retweets:1500 since:#{begin_time}_JST until:#{end_time}_JST").take(10)
+   begin_time1 = (Time.now - 60 * 60 * 24).strftime("%-F_00:00:00")
+   end_time1   = (Time.now - 60 * 60 * 24).strftime("%-F_23:59:59")
+   begin_time2 = Time.now.strftime("%-F_00:00:00")
+   end_time2   = Time.now.strftime("%-F_11:59:59")
+   begin_time3 = Time.now.strftime("%-F_12:00:00")
+   end_time3   = Time.now.strftime("%-F_23:59:59")
 
+#   @favorite_results = @client.search("lang:ja min_faves:1 since:#{begin_time}_JST until:#{end_time}_JST").take(10)
+   @content1 = @client.search("lang:ja since:#{begin_time1}_JST until:#{end_time1}_JST", {lang: 'ja', result_type: 'popular'})
+   @content2 = @client.search("lang:ja since:#{begin_time2}_JST until:#{end_time2}_JST", {lang: 'ja', result_type: 'popular'})
+   @content3 = @client.search("lang:ja since:#{begin_time3}_JST until:#{end_time3}_JST", {lang: 'ja', result_type: 'popular'})
+   puts @content1.count
+   puts @content2.count
+   puts @content3.count
+#   binding.pry
 
  end
 
